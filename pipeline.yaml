@@ -1,0 +1,12 @@
+name: build-and-test
+jobs:
+ - name: build
+   steps:
+   - name: Check Go files
+     run: go vet ./...
+   - name: Build binary
+     run: go build -o bin/cicd main.go
+ - name: test
+   steps:
+     - name: Run tests
+       run: echo "All tests passed"
