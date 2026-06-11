@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
+
+      - name: Install dependencies
+        run: go mod tidy
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Build
+        run: go build -o bin/cicd main.go
+
+      - name: Run pipeline
+        run: |
+          cat > test-pipeline.yaml << 'EOF'
+          name: test
+          jobs:
+            - name: verify
+              steps:
+                - name: Echo
+                  run: echo "CI passed"
+          EOF
+          go run main.go test-pipeline.yaml
