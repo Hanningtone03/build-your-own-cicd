@@ -1,17 +1,12 @@
+![CI](https://github.com/Hanningtone03/build-your-own-cicd/actions/workflows/ci.yml/badge.svg)
+
 # Build Your Own CI/CD
 
-A CI/CD pipeline runner built in Go; runs pipelines defined in YAML with steps, logging and failure handling.
+A CI/CD pipeline runner in Go; YAML-defined pipelines, step execution, logging, failure handling.
 
 ## How it works
 
-CI/CD tools like GitHub Actions and Jenkins read pipeline definitions and execute them step by step. This project implements that from scratch:
-
-- Parses YAML pipeline definitions into structured job and step objects
-- Executes each step as a shell command in sequence
-- Streams output from each step in real time
-- Tracks duration and status of every step
-- Supports failure handling — stop or continue on failure
-- Prints a formatted summary at the end
+A YAML file defines jobs and steps. The runner parses it, executes each step as a shell command, streams output, tracks duration and status, and prints a summary. Steps can be configured to continue or stop on failure.
 
 ## Project structure
 
